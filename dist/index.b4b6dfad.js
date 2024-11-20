@@ -27371,82 +27371,34 @@ var _movieView = require("../movie-view/movie-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const [movies, setMovies] = (0, _react.useState)([
-        {
-            id: 1,
-            title: "movie 1",
-            director: "director1",
-            image: "https://images.smiletemplates.com/uploads/screenshots/1/0000001466/poster-templates-s.jpg",
-            description: "pretty, pretty good",
-            URL: "#",
-            Subs: "none",
-            Genre: "none"
-        },
-        {
-            id: 2,
-            title: "movie 2",
-            director: "director2",
-            image: "https://images.smiletemplates.com/uploads/screenshots/1/0000001466/poster-templates-s.jpg",
-            description: "pretty, pretty good",
-            URL: "#",
-            Subs: "none",
-            Genre: "none"
-        },
-        {
-            id: 3,
-            title: "movie 3",
-            director: "director3",
-            image: "https://images.smiletemplates.com/uploads/screenshots/1/0000001466/poster-templates-s.jpg",
-            description: "pretty, pretty good",
-            URL: "#",
-            Subs: "none",
-            Genre: "none"
-        },
-        {
-            id: 4,
-            title: "movie 4",
-            director: "director4",
-            image: "https://images.smiletemplates.com/uploads/screenshots/1/0000001466/poster-templates-s.jpg",
-            description: "pretty, pretty good",
-            URL: "#",
-            Subs: "none",
-            Genre: "none"
-        },
-        {
-            id: 5,
-            title: "movie 5",
-            director: "director5",
-            image: "https://images.smiletemplates.com/uploads/screenshots/1/0000001466/poster-templates-s.jpg",
-            description: "pretty, pretty good",
-            URL: "#",
-            Subs: "none",
-            Genre: "none"
-        },
-        {
-            id: 6,
-            title: "movie 6",
-            director: "director6",
-            image: "https://images.smiletemplates.com/uploads/screenshots/1/0000001466/poster-templates-s.jpg",
-            description: "pretty, pretty good",
-            URL: "#",
-            Subs: "none",
-            Genre: "none"
-        }
-    ]);
+    const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    (0, _react.useEffect)(()=>{
+        fetch("https://openlibrary.org/search.json?q=star+wars").then((response)=>response.json()).then((data)=>{
+            const moviesFromApi = data.docs.map((doc)=>{
+                return {
+                    id: doc.key,
+                    title: doc.title,
+                    image: `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`,
+                    director: doc.author_name?.[0]
+                };
+            });
+            setMovies(moviesFromApi);
+        });
+    }, []);
     if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
         movie: selectedMovie,
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 20,
+        lineNumber: 30,
         columnNumber: 7
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "The list is empty! Oh no!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 25,
+        lineNumber: 35,
         columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27455,7 +27407,7 @@ const MainView = ()=>{
                 children: "\u0414\u043E\u0431\u0440\u043E\u0435 \u0434\u0435\u043D\u044C"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 30,
+                lineNumber: 40,
                 columnNumber: 7
             }, undefined),
             movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
@@ -27465,17 +27417,17 @@ const MainView = ()=>{
                     }
                 }, movie.id, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 32,
+                    lineNumber: 42,
                     columnNumber: 9
                 }, undefined))
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 29,
+        lineNumber: 39,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "BhNBP2K1tX2JxGbUFH4Zmm/rIJw=");
+_s(MainView, "PO+XgOji7E32nFJj3H5UPLPJ7w4=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
