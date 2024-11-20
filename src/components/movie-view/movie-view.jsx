@@ -30,5 +30,5 @@ export const MovieView = ({ movie, onBackClick }) => {
       </div>
       <button onClick={onBackClick}>Back</button>
     </div>
-  )
-}
+  );
+};
