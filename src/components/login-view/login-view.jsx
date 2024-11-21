@@ -13,7 +13,7 @@ export const LoginView = ({ onLoggedIn }) => {
       secret: password
     };
 
-    fetch("https://openlibrary.org/account/login.json", {
+    fetch("https://mosfilm-api.onrender.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
