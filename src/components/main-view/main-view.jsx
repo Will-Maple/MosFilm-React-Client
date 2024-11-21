@@ -11,9 +11,16 @@ export const MainView = () => {
   const [token, setToken] = useState(null);
 
   useEffect(() => {
-    fetch("https://mosfilm-api.onrender.com/movies")
+    if (!token) {
+      return;
+    }
+
+    fetch("https://mosfilm-api.onrender.com/movies", {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         const moviesFromApi = data.map((doc) => {
           return {
             id: doc.id,
@@ -25,7 +32,7 @@ export const MainView = () => {
 
         setMovies(moviesFromApi);
       });
-  }, []);
+  }, [token]);
 
   if (selectedMovie) {
     return (
