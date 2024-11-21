@@ -69,7 +69,7 @@ export const SignupView = () => {
           required
         />
       </label>
-      <button class="submit-signup" type="submit">Submit</button>
+      <button className="submit-signup" type="submit">Submit</button>
     </form>
   );
 };

@@ -28470,7 +28470,7 @@ const MovieView = ({ movie, onBackClick })=>{
                 columnNumber: 24
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                class: "back-button",
+                className: "back-button",
                 onClick: onBackClick,
                 children: "Back"
             }, void 0, false, {
@@ -28595,7 +28595,7 @@ const LoginView = ({ onLoggedIn })=>{
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                class: "submit-login",
+                className: "submit-login",
                 type: "submit",
                 children: "Submit"
             }, void 0, false, {
@@ -28734,7 +28734,7 @@ const SignupView = ()=>{
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                class: "submit-signup",
+                className: "submit-signup",
                 type: "submit",
                 children: "Submit"
             }, void 0, false, {

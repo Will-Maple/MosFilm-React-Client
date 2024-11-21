@@ -55,7 +55,7 @@ export const LoginView = ({ onLoggedIn }) => {
           minLength={8}
         />
       </label>
-      <button class="submit-login" type="submit">Submit</button>
+      <button className="submit-login" type="submit">Submit</button>
     </form>
   );
 };
