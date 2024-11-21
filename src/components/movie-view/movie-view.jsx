@@ -3,9 +3,19 @@ import PropTypes from "prop-types";
 export const MovieView = ({ movie, onBackClick }) => {
   return (
     <div>
-      <div>
-        <img src={movie.image} />
-      </div>
+      {movie.url && (
+        <div className="embedded-movie">
+          <iframe
+            width="560"
+            height="315"
+            src={movie.url}
+            title={movie.title}
+            frameborder="0"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+      )}
       <div>
         <span>Title: </span>
         <span>{movie.title}</span>
@@ -41,10 +51,10 @@ export const MovieView = ({ movie, onBackClick }) => {
 
 MovieView.propTypes = {
   movie: PropTypes.shape({
-    title: PropTypes.string,
+    title: PropTypes.string.isRequired,
     director: PropTypes.string,
     description: PropTypes.string,
-    url: PropTypes.string,
+    url: PropTypes.string.isRequired,
     subs: PropTypes.shape({
       Spanish: PropTypes.bool,
       SpanishURL: PropTypes.string
@@ -54,5 +64,5 @@ MovieView.propTypes = {
       description: PropTypes.string
     })
   }).isRequired,
-  onMovieClick: PropTypes.func.isRequired
+  onBackClick: PropTypes.func.isRequired
 };
