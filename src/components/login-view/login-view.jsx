@@ -1,4 +1,5 @@
-import useState from "react";
+import { useState } from "react";
+
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -15,6 +16,12 @@ export const LoginView = ({ onLoggedIn }) => {
     fetch("https://openlibrary.org/account/login.json", {
       method: "POST",
       body: JSON.stringify(data)
+    }).then((response) => {
+      if (response.ok) {
+        onLoggedIn(username);
+      } else {
+        alert("Login failed");
+      }
     });
   };
 

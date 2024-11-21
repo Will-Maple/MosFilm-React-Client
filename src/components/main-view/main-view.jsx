@@ -33,7 +33,7 @@ export const MainView = () => {
   }
 
   if (!user) {
-    return <LoginView />;
+    return <LoginView onLoggedIn={(user) => setUser(user)} />;
   }
 
   if (movies.length === 0) {
