@@ -1,3 +1,4 @@
+import "./signup-view.scss"
 import { useState } from "react";
 
 export const SignupView = () => {
@@ -68,7 +69,7 @@ export const SignupView = () => {
           required
         />
       </label>
-      <button type="submit">Submit</button>
+      <button class="submit-signup" type="submit">Submit</button>
     </form>
   );
 };

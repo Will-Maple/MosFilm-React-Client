@@ -1,3 +1,4 @@
+import "./login-view.scss"
 import { useState } from "react";
 
 
@@ -54,7 +55,7 @@ export const LoginView = ({ onLoggedIn }) => {
           minLength={8}
         />
       </label>
-      <button type="submit">Submit</button>
+      <button class="submit-login" type="submit">Submit</button>
     </form>
   );
 };

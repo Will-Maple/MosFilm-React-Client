@@ -1,4 +1,14 @@
 .my-flix {
   color: #ff69b4;
 }
+
+.back-button, .submit-login, .submit-signup {
+  color: #8c1e4d;
+  border: 1px line;
+  background-color: #fffff4;
+  border-color: #8c1e4d;
+  border-radius: 13px;
+  padding: 10px;
+  font-weight: 650;
+}
 /*# sourceMappingURL=index.2212206d.css.map */
