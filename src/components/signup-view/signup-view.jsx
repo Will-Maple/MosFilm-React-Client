@@ -11,10 +11,10 @@ export const SignupView = () => {
     event.preventDefault();
 
     const data = {
-      Username: Username,
-      Password: Password,
-      Emaill: Email,
-      Birthday: Birthday
+      Username: username,
+      Password: password,
+      Emaill: email,
+      Birthday: birthday
     };
 
     fetch("https://mosfilm-api.onrender.com/users", {
@@ -23,7 +23,7 @@ export const SignupView = () => {
       headers: {
         "Content-Type": "Application/json"
       }
-    }).then((respnse) => {
+    }).then((response) => {
       if (response.ok) {
         alert("Signup successful");
         window.location.reload();
@@ -34,7 +34,7 @@ export const SignupView = () => {
   };
 
   return (
-    <form on submit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <label>
         Username:
         <input
