@@ -1,5 +1,6 @@
 import "./login-view.scss"
 import { useState } from "react";
+import { Form, Button } from "react-bootstrap";
 
 
 export const LoginView = ({ onLoggedIn }) => {
@@ -36,26 +37,30 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input type="text"
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlID="formUsername">
+        <Form.Label>Username:</Form.Label>
+        <Form.Control
+          type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
-          minLength={5}
+          minLength="5"
         />
-      </label>
-      <label>
-        Password:
-        <input type="password"
+      </Form.Group>
+
+      <Form.Group controlId="formPassword">
+        <Form.Label>Password:</Form.Label>
+        <Form.Control
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          minLength={8}
         />
-      </label>
-      <button className="submit-login" type="submit">Submit</button>
-    </form>
+      </Form.Group>
+      <Button variant="primary" bsPrefix="submit-login" type="submit">
+        Submit
+      </Button>
+    </Form>
   );
 };
