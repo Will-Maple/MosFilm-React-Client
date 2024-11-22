@@ -1,17 +1,17 @@
 import PropTypes from "prop-types";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, CardImg } from "react-bootstrap";
 
 export const MovieCard = ({ movie, onMovieClick }) => {
   return (
     <Card>
-      <Card.Video width="320" height="240" controls>
-        <source src={movie.url} type="video/mp4" />
-      </Card.Video>
-      <Card.Body>
+      <div>
+        <CardImg variant="top" src="https://designshack.net/wp-content/uploads/placehold.jpg" />
+      </div>
+      <Card.Body onClick={() => onMovieClick(movie)}>
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>{movie.director}</Card.Text>
-        <Button onClick={() => onMovieClick(movie)} variant="link">
-          Open
+        <Button>
+          Modal?
         </Button>
       </Card.Body>
     </Card>

@@ -4,14 +4,13 @@ import PropTypes from "prop-types";
 export const MovieView = ({ movie, onBackClick }) => {
   return (
     <div>
-      {movie.url && (
+      {movie.url.length >= 5 && (
         <div className="embedded-movie">
           <iframe
             width="560"
             height="315"
             src={movie.url}
             title={movie.title}
-            frameborder="0"
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
