@@ -3,7 +3,7 @@ import { Button, Card, CardImg } from "react-bootstrap";
 
 export const MovieCard = ({ movie, onMovieClick }) => {
   return (
-    <Card>
+    <Card className="h-100">
       <div>
         <CardImg variant="top" src="https://designshack.net/wp-content/uploads/placehold.jpg" />
       </div>
