@@ -1,8 +1,13 @@
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import "./movie-view.scss";
 import PropTypes from "prop-types";
 import { Col } from "react-bootstrap";
 
-export const MovieView = ({ movie, onBackClick }) => {
+export const MovieView = ({ movie }) => {
+  const { movieId } = useParams();
+
+  const movie = movie.find((m) => m.id === movieId);
   return (
     <div>
       {movie.url.length >= 5 && (
@@ -45,7 +50,9 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span>{movie.genre}</span>
       </div>
       )}
-      <button className="back-button" onClick={onBackClick}>Back</button>
+      <Link to={`/`}>
+        <button className="back-button">Back</button>
+      </Link>
     </div>
   );
 };
@@ -65,5 +72,4 @@ MovieView.propTypes = {
       description: PropTypes.string
     })
   }).isRequired,
-  onBackClick: PropTypes.func.isRequired
 };
