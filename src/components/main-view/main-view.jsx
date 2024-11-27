@@ -123,7 +123,7 @@ export const MainView = () => {
                       </div>
                       <div>
                         <a href="https://github.com/Will-Maple">
-                          <Image src={Github} alt="Github Link" style={{ height: "50px", width: "100px" }} />
+                          <Image src={Github} alt="Github Link" style={{ height: "50px", width: "50px" }} />
                         </a>
                       </div>
                     </Col>

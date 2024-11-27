@@ -3210,7 +3210,7 @@ const MainView = ()=>{
                                                             alt: "Github Link",
                                                             style: {
                                                                 height: "50px",
-                                                                width: "100px"
+                                                                width: "50px"
                                                             }
                                                         }, void 0, false, {
                                                             fileName: "src/components/main-view/main-view.jsx",
