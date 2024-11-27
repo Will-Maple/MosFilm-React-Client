@@ -1,10 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { MovieCard } from "../movie-card/movie-card"
+import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { UserView } from "../user-view/user-view";
 import { Row, Col, Image } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import Github from "./github.svg";
@@ -88,7 +89,7 @@ export const MainView = () => {
             }
           />
           <Route
-            path="/movie/:movieID"
+            path="/movie/:movieId"
             element={
               <>
                 {!user ? (
@@ -98,7 +99,26 @@ export const MainView = () => {
                 ) : (
                   <Col md={8}>
                     <MovieView
-                      movie={movies}
+                      movies={movies}
+                    />
+                  </Col>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/user/:userId"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>The list is empty! Oh no!</Col>
+                ) : (
+                  <Col md={8}>
+                    <UserView
+                      movies={movies}
+                      user={user}
                     />
                   </Col>
                 )}

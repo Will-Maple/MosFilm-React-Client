@@ -4,10 +4,11 @@ import "./movie-view.scss";
 import PropTypes from "prop-types";
 import { Col } from "react-bootstrap";
 
-export const MovieView = ({ movie }) => {
+export const MovieView = ({ movies }) => {
   const { movieId } = useParams();
 
-  const selectedMovie = movie.find((m) => m.id === movieId);
+  const selectedMovie = movies.find((m) => m.id === movieId);
+
   return (
     <div>
       {selectedMovie.url.length >= 5 && (
@@ -58,18 +59,20 @@ export const MovieView = ({ movie }) => {
 };
 
 MovieView.propTypes = {
-  movie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    director: PropTypes.string,
-    description: PropTypes.string,
-    url: PropTypes.string.isRequired,
-    subs: PropTypes.shape({
-      Spanish: PropTypes.bool,
-      SpanishURL: PropTypes.string
-    }),
-    genre: PropTypes.shape({
-      name: PropTypes.string,
-      description: PropTypes.string
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      director: PropTypes.string,
+      description: PropTypes.string,
+      url: PropTypes.string.isRequired,
+      subs: PropTypes.shape({
+        Spanish: PropTypes.bool,
+        SpanishURL: PropTypes.string
+      }),
+      genre: PropTypes.shape({
+        name: PropTypes.string,
+        description: PropTypes.string
+      })
     })
-  }).isRequired,
+  ).isRequired,
 };
