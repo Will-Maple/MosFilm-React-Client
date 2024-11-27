@@ -7,16 +7,16 @@ import { Col } from "react-bootstrap";
 export const MovieView = ({ movie }) => {
   const { movieId } = useParams();
 
-  const movie = movie.find((m) => m.id === movieId);
+  const selectedMovie = movie.find((m) => m.id === movieId);
   return (
     <div>
-      {movie.url.length >= 5 && (
+      {selectedMovie.url.length >= 5 && (
         <div className="embedded-movie">
           <iframe
             width="560"
             height="315"
-            src={movie.url}
-            title={movie.title}
+            src={selectedMovie.url}
+            title={selectedMovie.title}
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
@@ -24,30 +24,30 @@ export const MovieView = ({ movie }) => {
       )}
       <div>
         <span>Title: </span>
-        <span>{movie.title}</span>
+        <span>{selectedMovie.title}</span>
       </div>
-      {movie.director && (<div>
+      {selectedMovie.director && (<div>
         <span>Director: </span>
-        <span>{movie.director}</span>
+        <span>{selectedMovie.director}</span>
       </div>
       )}
-      {movie.description && (<div>
+      {selectedMovie.description && (<div>
         <span>Descrption: </span>
-        <span>{movie.description}</span>
+        <span>{selectedMovie.description}</span>
       </div>
       )}
       <div>
         <span>URL: </span>
-        <span>{movie.url}</span>
+        <span>{selectedMovie.url}</span>
       </div>
-      {movie.subs && (<div>
+      {selectedMovie.subs && (<div>
         <span>Subs: </span>
-        <span>{movie.subs}</span>
+        <span>{selectedMovie.subs}</span>
       </div>
       )}
-      {movie.genre && (<div>
+      {selectedMovie.genre && (<div>
         <span>Genre: </span>
-        <span>{movie.genre}</span>
+        <span>{selectedMovie.genre}</span>
       </div>
       )}
       <Link to={`/`}>
