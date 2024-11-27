@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import "./movie-view.scss";
 import PropTypes from "prop-types";
 import { Col } from "react-bootstrap";

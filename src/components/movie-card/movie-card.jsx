@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 export const MovieCard = ({ movie }) => {
   return (
