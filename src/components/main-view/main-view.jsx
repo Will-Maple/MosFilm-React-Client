@@ -6,6 +6,8 @@ import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { UserView } from "../user-view/user-view";
+import { UserDelete } from "../user-delete/user-delete"
+import { UserFavorites } from "../user-favorites/user-favorites"
 import { Row, Col, Image } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import Github from "./github.svg";
@@ -115,13 +117,26 @@ export const MainView = () => {
                 ) : movies.length === 0 ? (
                   <Col>The list is empty! Oh no!</Col>
                 ) : (
-                  <Col md={8}>
-                    <UserView
-                      movies={movies}
-                      user={user}
-                      token={token}
-                    />
-                  </Col>
+                  <>
+                    <Col md={8}>
+                      <UserView
+                        movies={movies}
+                        user={user}
+                        token={token}
+                      />
+                    </Col>
+                    <Col md={12}>
+                      <UserDelete
+                        user={user}
+                        token={token}
+                        onLoggedOut={() => {
+                          setUser(null);
+                          setToken(null);
+                          localStorage.clear()
+                        }}
+                      />
+                    </Col>
+                  </>
                 )}
               </>
             }

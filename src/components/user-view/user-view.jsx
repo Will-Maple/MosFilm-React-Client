@@ -13,7 +13,6 @@ export const UserView = ({ movies, user, token }) => {
   const updateParams = user.Username;
   const defaultUsername = user.Username;
   const defualtEmail = user.Email;
-  const defaultBirthday = user.Birthday;
   const [username, setUsername] = useState("");
   const [firstPassword, setFirstPassword] = useState("");
   const [secondPassword, setSecondPassword] = useState("");
@@ -27,7 +26,7 @@ export const UserView = ({ movies, user, token }) => {
     if (firstPassword === secondPassword) {
       setPassword(firstPassword)
     } else {
-      alert("Passwords do not Match!")
+      return (alert("Passwords do not Match!"))
     };
 
     const data = {
@@ -116,7 +115,6 @@ export const UserView = ({ movies, user, token }) => {
             <Form.Control
               type="date"
               value={birthday}
-              defaultValue={defaultBirthday}
               onChange={(e) => setBirthday(e.target.value)}
               required
             />

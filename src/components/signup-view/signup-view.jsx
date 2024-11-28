@@ -1,6 +1,7 @@
 import "./signup-view.scss"
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap"
+import { Link } from "react-router";
 
 export const SignupView = () => {
   const [username, setUsername] = useState("");
@@ -27,7 +28,7 @@ export const SignupView = () => {
     }).then((response) => {
       if (response.ok) {
         alert("Signup successful");
-        window.location.reload();
+        window.open("/login", "_self");
       } else {
         alert("Signup failed");
       }
@@ -69,9 +70,8 @@ export const SignupView = () => {
         <Form.Label>Birthday</Form.Label>
         <Form.Control
           type="date"
-          format="yyyy/mm/dd"
           value={birthday}
-          onChange={(e) => setBirthday(toISOString(e.target.value))}
+          onChange={(e) => setBirthday(e.target.value)}
           required
         />
       </Form.Group>
