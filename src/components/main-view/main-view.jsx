@@ -7,7 +7,6 @@ import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { UserView } from "../user-view/user-view";
 import { UserDelete } from "../user-delete/user-delete"
-import { UserFavorites } from "../user-favorites/user-favorites"
 import { Row, Col, Image } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import Github from "./github.svg";
@@ -43,6 +42,8 @@ export const MainView = () => {
         setMovies(moviesFromApi);
       });
   }, [token]);
+
+  let favorites = movies.filter(m => user.Favorites.includes(m.id))
 
   return (
     <BrowserRouter>
@@ -118,7 +119,7 @@ export const MainView = () => {
                   <Col>The list is empty! Oh no!</Col>
                 ) : (
                   <>
-                    <Col md={8}>
+                    <Col md={12}>
                       <UserView
                         user={user}
                         token={token}
@@ -129,13 +130,16 @@ export const MainView = () => {
                         }}
                       />
                     </Col>
-                    <Col md={12}>
-                      <UserFavorites
-                        user={user}
-                        movies={movies}
-                        token={token}
-                      />
-                    </Col>
+                    {favorites.map((movie) => (
+                      <Col className="mb-4" key={movie.id} md={3}>
+                        <MovieCard
+                          movie={movie}
+                          user={user}
+                          token={token}
+                          favorites={favorites}
+                        />
+                      </Col>
+                    ))}
                     <Col md={12}>
                       <UserDelete
                         user={user}
@@ -191,6 +195,7 @@ export const MainView = () => {
                           movie={movie}
                           user={user}
                           token={token}
+                          favorite={favorites}
                         />
                       </Col>
                     ))}

@@ -4,8 +4,15 @@ import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router";
 
 export const MovieCard = ({ movie, user, token }) => {
-  const [Favorite, setFavorite] = useState(false);
+  const [faved, setFaved] = useState(false);
   const username = user.Username;
+
+  let favTest = user.Favorites.indexOf(movie.id)
+  if (favTest === -1) {
+    setFaved(false)
+  } else {
+    setFaved(true)
+  };
 
   const handleAdd = () => addFavorite(movie.id);
   const handleRemove = () => removeFavorite(movie.id);
@@ -52,8 +59,11 @@ export const MovieCard = ({ movie, user, token }) => {
         <Link to={`/movie/${encodeURIComponent(movie.id)}`}>
           <Button variant="link">Open</Button>
         </Link>
-        <Button variety="primary" onClick={handleAdd} >Add Fave!</Button>
-        <Button variety="secondary" onClick={handleRemove} >Remove?</Button>
+        {!faved ? (
+          <Button variety="primary" onClick={handleAdd} >Add Fave!</Button>
+        ) : (
+          <Button variety="secondary" onClick={handleRemove} >Remove?</Button>
+        )}
       </Card.Body>
     </Card>
   );
