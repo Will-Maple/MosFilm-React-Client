@@ -20,7 +20,7 @@ export const SignupView = () => {
     };
 
     fetch("https://mosfilm-api.onrender.com/users", {
-      method: "post",
+      method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "Application/json"

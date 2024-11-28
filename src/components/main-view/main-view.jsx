@@ -120,8 +120,19 @@ export const MainView = () => {
                   <>
                     <Col md={8}>
                       <UserView
-                        movies={movies}
                         user={user}
+                        token={token}
+                        onLoggedOut={() => {
+                          setUser(null);
+                          setToken(null);
+                          localStorage.clear()
+                        }}
+                      />
+                    </Col>
+                    <Col md={12}>
+                      <UserFavorites
+                        user={user}
+                        movies={movies}
                         token={token}
                       />
                     </Col>
@@ -177,7 +188,10 @@ export const MainView = () => {
                     {movies.map((movie) => (
                       <Col className="mb-4" key={movie.id} md={3}>
                         <MovieCard
-                          movie={movie} />
+                          movie={movie}
+                          user={user}
+                          token={token}
+                        />
                       </Col>
                     ))}
                   </>

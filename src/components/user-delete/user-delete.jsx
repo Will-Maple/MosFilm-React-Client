@@ -13,7 +13,7 @@ export const UserDelete = ({ user, token, onLoggedOut }) => {
 
   const initiateDelete = () => {
     fetch(`https://mosfilm-api.onrender.com/users/${username}`, {
-      method: "delete",
+      method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "Application/json"

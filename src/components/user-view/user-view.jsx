@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Form, Button, Card, Modal } from "react-bootstrap";
+import { Form, Button, Modal } from "react-bootstrap";
 import { useParams, Link } from "react-router";
 import './user-view.scss';
+import { Next } from 'react-bootstrap/esm/PageItem';
 
-export const UserView = ({ movies, user, token }) => {
+export const UserView = ({ user, token, onLoggedOut }) => {
   console.log({ user });
   const [show, setShow] = useState(false);
 
@@ -20,14 +21,7 @@ export const UserView = ({ movies, user, token }) => {
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    if (firstPassword === secondPassword) {
-      setPassword(firstPassword)
-    } else {
-      return (alert("Passwords do not Match!"))
-    };
+  const initiateSubmit = () => {
 
     const data = {
       Username: username,
@@ -45,12 +39,25 @@ export const UserView = ({ movies, user, token }) => {
       }
     }).then((response) => {
       if (response.ok) {
-        alert("Update successful");
-        window.location.reload();
+        alert("Update successful")
+        onLoggedOut()
       } else {
         alert("Update failed");
       }
-    });
+    })
+      .catch((e) => {
+        alert("Something went wrong");
+      });
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (firstPassword === secondPassword) {
+      setPassword(firstPassword);
+      initiateSubmit();
+    } else {
+      return (alert("Passwords do not Match!"))
+    }
   };
 
   return (<div>
@@ -73,7 +80,6 @@ export const UserView = ({ movies, user, token }) => {
             <Form.Control
               type="text"
               value={username}
-              defaultValue={defaultUsername}
               placeholder={defaultUsername}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -82,7 +88,7 @@ export const UserView = ({ movies, user, token }) => {
           </Form.Group>
 
           <Form.Group controlId="formPassword">
-            <Form.Label>Password:</Form.Label>
+            <Form.Label>New Password:</Form.Label>
             <Form.Control
               type="password"
               value={firstPassword}
@@ -104,7 +110,6 @@ export const UserView = ({ movies, user, token }) => {
             <Form.Control
               type="email"
               value={email}
-              defaultValue={defualtEmail}
               placeholder={defualtEmail}
               onChange={(e) => setEmail(e.target.value)}
               required
