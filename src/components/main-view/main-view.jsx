@@ -119,6 +119,7 @@ export const MainView = () => {
                     <UserView
                       movies={movies}
                       user={user}
+                      token={token}
                     />
                   </Col>
                 )}

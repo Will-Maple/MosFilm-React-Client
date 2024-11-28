@@ -14,7 +14,7 @@ export const SignupView = () => {
     const data = {
       Username: username,
       Password: password,
-      Emaill: email,
+      Email: email,
       Birthday: birthday
     };
 
@@ -65,12 +65,13 @@ export const SignupView = () => {
           required
         />
       </Form.Group>
-      <Form.Group ControlId="formBirthday">
+      <Form.Group controlId="formBirthday">
         <Form.Label>Birthday</Form.Label>
         <Form.Control
           type="date"
+          format="yyyy/mm/dd"
           value={birthday}
-          onChange={(e) => setBirthday(e.target.value)}
+          onChange={(e) => setBirthday(toISOString(e.target.value))}
           required
         />
       </Form.Group>
