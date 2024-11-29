@@ -1,25 +1,33 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router";
 
-export const MovieCard = ({ movie, user, token }) => {
+export const MovieCard = ({ movie, user, token, setUser }) => {
   const [faved, setFaved] = useState(false);
   const username = user.Username;
 
-  let favTest = user.Favorites.indexOf(movie.id)
-  if (favTest === -1) {
-    setFaved(false)
-  } else {
-    setFaved(true)
-  };
+  useEffect(() => {
+    let favTest = user.Favorites.indexOf(movie.id);
+    if (favTest === -1) {
+      setFaved(false);
+    } else {
+      setFaved(true);
+    }
+  }, [user.Favorites, movie.id])
 
   const handleAdd = () => addFavorite(movie.id);
   const handleRemove = () => removeFavorite(movie.id);
 
   const removeFavorite = (fav) => {
     let index = user.Favorites.indexOf(fav);
-    user.Favorites.splice(index, 1);
+    let updatedFavorites = [...user.Favorites];
+    updatedFavorites.splice(index, 1);
+    const updatedUser = { ...user, Favorites: updatedFavorites };
+    setUser(updatedUser);
+
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+
     fetch(`https://mosfilm-api.onrender.com/users/${username}/movies/${fav}`, {
       method: "DELETE",
       headers: {
@@ -34,7 +42,14 @@ export const MovieCard = ({ movie, user, token }) => {
   };
 
   const addFavorite = (fav) => {
-    user.Favorites.push(fav);
+    console.log(user.Favorites)
+    const updatedFavorites = [...user.Favorites, fav];
+    const updatedUser = { ...user, Favorites: updatedFavorites };
+    setUser(updatedUser);
+    console.log(updatedUser)
+
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+
     fetch(`https://mosfilm-api.onrender.com/users/${username}/movies/${fav}`, {
       method: "POST",
       headers: {

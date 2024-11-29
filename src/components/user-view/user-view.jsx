@@ -53,8 +53,7 @@ export const UserView = ({ user, token, onLoggedOut }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (firstPassword === secondPassword) {
-      setPassword(firstPassword);
-      initiateSubmit();
+      initiateSubmit(firstPassword);
     } else {
       return (alert("Passwords do not Match!"))
     }

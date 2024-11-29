@@ -137,6 +137,7 @@ export const MainView = () => {
                           user={user}
                           token={token}
                           favorites={favorites}
+                          setUser={setUser}
                         />
                       </Col>
                     ))}
@@ -196,6 +197,7 @@ export const MainView = () => {
                           user={user}
                           token={token}
                           favorite={favorites}
+                          setUser={setUser}
                         />
                       </Col>
                     ))}
