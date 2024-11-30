@@ -1,14 +1,25 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router';
+import './navigation-bar.scss';
+import favicon from '../../img/logo.png';
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
   return (
-    <Navbar expand="md" className="bg-body-tertiary">
+    <Navbar expand="md" className="bg-body-tertiary" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand as={Link} to="/">Доброе день</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">
+          <img
+            alt="Will and Maple Logo"
+            src={favicon}
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+          />{' '}
+          Доброе день
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="ms-auto">
             {!user && (
               <>
                 <Nav.Link as={Link} to="/login">

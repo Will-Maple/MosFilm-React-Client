@@ -1,6 +1,6 @@
 import "./login-view.scss"
 import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row, Col, Container } from "react-bootstrap";
 
 
 export const LoginView = ({ onLoggedIn }) => {
@@ -37,30 +37,38 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formUsername">
-        <Form.Label>Username:</Form.Label>
-        <Form.Control
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-          minLength="5"
-        />
-      </Form.Group>
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <Row className="justify-content-md-center">
+          <Col md={5}>
+            <Form.Group className="mt-1" controlId="formUsername">
+              <Form.Label className="mx-2">Username:</Form.Label>
+              <Form.Control
+                type="text"
+                value={username}
+                placeholder="enter username"
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                minLength="5"
+              />
+            </Form.Group>
 
-      <Form.Group controlId="formPassword">
-        <Form.Label>Password:</Form.Label>
-        <Form.Control
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </Form.Group>
-      <Button variant="primary" bsPrefix="submit-login" type="submit">
-        Submit
-      </Button>
-    </Form>
+            <Form.Group className="mt-2" controlId="formPassword">
+              <Form.Label className="mx-2">Password:</Form.Label>
+              <Form.Control
+                type="password"
+                value={password}
+                placeholder="enter password"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Button variant="primary" bsPrefix="submit-login" type="submit">
+              Submit
+            </Button>
+          </Col>
+        </Row>
+      </Form>
+    </Container>
   );
 };

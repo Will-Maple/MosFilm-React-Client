@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router";
+import "./movie-card.scss";
 
 export const MovieCard = ({ movie, user, token, setUser }) => {
   const [faved, setFaved] = useState(false);
@@ -16,8 +17,15 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
     }
   }, [user.Favorites, movie.id])
 
-  const handleAdd = () => addFavorite(movie.id);
-  const handleRemove = () => removeFavorite(movie.id);
+  const handleAdd = (event) => {
+    event.preventDefault();
+    addFavorite(movie.id);
+  }
+
+  const handleRemove = (event) => {
+    event.preventDefault();
+    removeFavorite(movie.id);
+  }
 
   const removeFavorite = (fav) => {
     let index = user.Favorites.indexOf(fav);
@@ -42,11 +50,9 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
   };
 
   const addFavorite = (fav) => {
-    console.log(user.Favorites)
     const updatedFavorites = [...user.Favorites, fav];
     const updatedUser = { ...user, Favorites: updatedFavorites };
     setUser(updatedUser);
-    console.log(updatedUser)
 
     localStorage.setItem("user", JSON.stringify(updatedUser));
 
@@ -63,24 +69,32 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
     );
   }
 
+  const getYoutubeThumb = (url) => {
+    try {
+      const urlObj = new URL(url);
+      const videoId = urlObj.pathname.split('/').pop();
+      return `https://img.youtube.com/vi/${videoId}/0.jpg`;
+    } catch (e) {
+    }
+  };
+
   return (
-    <Card className="h-100">
-      <div>
-        <Card.Img variant="top" src="https://designshack.net/wp-content/uploads/placehold.jpg" />
-      </div>
-      <Card.Body>
-        <Card.Title>{movie.title}</Card.Title>
-        <Card.Text>{movie.director} + {movie.id}</Card.Text>
-        <Link to={`/movie/${encodeURIComponent(movie.id)}`}>
-          <Button variant="link">Open</Button>
-        </Link>
-        {!faved ? (
-          <Button variety="primary" onClick={handleAdd} >Add Fave!</Button>
-        ) : (
-          <Button variety="secondary" onClick={handleRemove} >Remove?</Button>
-        )}
-      </Card.Body>
-    </Card>
+    <Link to={`/movie/${encodeURIComponent(movie.id)}`} style={{ textDecoration: 'none' }}>
+      <Card className={"h-100 " + (faved ? "isFaved" : "notFaved")}>
+        <div>
+          <Card.Img variant="top" src={getYoutubeThumb(movie.url)} />
+        </div>
+        <Card.Body>
+          <Card.Title className="noDecor">{movie.title}</Card.Title>
+          <Card.Text className="noDecor">{movie.director}</Card.Text>
+          {!faved ? (
+            <Button variety="primary" bsPrefix="handleAdd" onClick={(event) => handleAdd(event)} >Add Fave!</Button>
+          ) : (
+            <Button variety="secondary" bsPrefix="handleRemove" onClick={(event) => handleRemove(event)} >Remove?</Button>
+          )}
+        </Card.Body>
+      </Card>
+    </Link>
   );
 };
 

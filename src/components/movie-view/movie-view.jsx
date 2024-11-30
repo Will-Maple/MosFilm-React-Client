@@ -2,9 +2,10 @@ import { useParams } from "react-router";
 import { Link } from "react-router";
 import "./movie-view.scss";
 import PropTypes from "prop-types";
-import { Col } from "react-bootstrap";
+import { Col, Button } from "react-bootstrap";
 
 export const MovieView = ({ movies }) => {
+  /*const movies = useSelector((state) => state.movies);*/
   const { movieId } = useParams();
 
   const selectedMovie = movies.find((m) => m.id === movieId);
@@ -52,7 +53,7 @@ export const MovieView = ({ movies }) => {
       </div>
       )}
       <Link to={`/`}>
-        <button className="back-button">Back</button>
+        <Button bsPrefix="utility">Back</Button>
       </Link>
     </div>
   );

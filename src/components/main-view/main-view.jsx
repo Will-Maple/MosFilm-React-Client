@@ -9,16 +9,20 @@ import { UserView } from "../user-view/user-view";
 import { UserDelete } from "../user-delete/user-delete"
 import { Row, Col, Image } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
-import Github from "./github.svg";
-import Portfolio from "./portfolio.svg";
-import Youtube from "./youtube.svg";
+import Github from "../../img/github.svg";
+import Portfolio from "../../img/portfolio.svg";
+import Youtube from "../../img/youtube.svg";
+import { useSelector, useDispatch } from "react-redux";
+import { setMovies } from "../../redux/reducers/movies";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
+  /*const movies = useSelector((state) => state.movies);*/
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
+  /*const dispatch = useDispatch();*/
 
   useEffect(() => {
     if (!token) {
@@ -40,6 +44,7 @@ export const MainView = () => {
         });
 
         setMovies(moviesFromApi);
+        /*dispatch(setMovies(moviesFromApi));*/
       });
   }, [token]);
 
@@ -65,9 +70,7 @@ export const MainView = () => {
                   <Navigate to="/" />
                 ) : (
                   <>
-                    <Col md={5}>
-                      <SignupView />
-                    </Col>
+                    <SignupView />
                   </>
                 )}
               </>
@@ -80,13 +83,11 @@ export const MainView = () => {
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <Col md={5}>
-                    <LoginView onLoggedIn={(user, token) => {
-                      setUser(user);
-                      setToken(token);
-                    }}
-                    />
-                  </Col>
+                  <LoginView onLoggedIn={(user, token) => {
+                    setUser(user);
+                    setToken(token);
+                  }}
+                  />
                 )}
               </>
             }

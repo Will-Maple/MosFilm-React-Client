@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Form, Button, Modal } from "react-bootstrap";
+import { Form, Button, Modal, Container } from "react-bootstrap";
 import { useParams, Link } from "react-router";
-import './user-view.scss';
 import { Next } from 'react-bootstrap/esm/PageItem';
 
 export const UserView = ({ user, token, onLoggedOut }) => {
@@ -59,20 +58,25 @@ export const UserView = ({ user, token, onLoggedOut }) => {
     }
   };
 
-  return (<div>
-    <div>
-      User: {user.Username} --- Email: {user.Email} --- Birthday: {user.Birthday}
-    </div>
-    <Button variety="primary" onClick={handleShow}>Update User Details</Button>
-    <Link to={`/`}>
-      <Button className="back-button">Back</Button>
-    </Link>
+  return (<>
+    <Container onClick={handleShow}>
+      <div>
+        <p className='fs-3 text-center'>{user.Username}</p>
+      </div>
+      <div>
+        <p className='fs-3 text-center'>{user.Email}</p>
+      </div>
+      <div>
+        <p className='fs-3 text-center'>{user.Birthday}</p>
+      </div>
+    </Container>
 
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Update Info</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <p>Current Details: {user.Username} --- {user.Email} --- {user.Birthday}</p>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formUsername">
             <Form.Label>Username:</Form.Label>
@@ -91,6 +95,7 @@ export const UserView = ({ user, token, onLoggedOut }) => {
             <Form.Control
               type="password"
               value={firstPassword}
+              placeholder='password'
               onChange={(e) => setFirstPassword(e.target.value)}
               required
             />
@@ -100,6 +105,7 @@ export const UserView = ({ user, token, onLoggedOut }) => {
             <Form.Control
               type="password"
               value={secondPassword}
+              placeholder='password'
               onChange={(e) => setSecondPassword(e.target.value)}
               required
             />
@@ -123,13 +129,13 @@ export const UserView = ({ user, token, onLoggedOut }) => {
               required
             />
           </Form.Group>
-          <Button varient="Primary" bsPrefix="submit-signup" type="submit">Submit</Button>
+          <Button varient="Primary" bsPrefix="submit-signup" type="submit">Update Details</Button>
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button varient="primary" onClick={handleClose}>Exit</Button>
+        <Button varient="primary" onClick={handleClose} bsPrefix='utility'>Exit</Button>
       </Modal.Footer>
     </Modal>
-  </div>
+  </>
   )
 };

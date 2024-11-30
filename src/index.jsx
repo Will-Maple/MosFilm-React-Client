@@ -11,7 +11,7 @@ import "./index.scss";
 const MosFilmApplication = () => {
   return (
     <Provider store={store}>
-      <Container style={{ border: "1px solid red" }}>
+      <Container>
         <MainView />
       </Container>
     </Provider>

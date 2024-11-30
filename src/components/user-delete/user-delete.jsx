@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Form, Button, Card, Modal } from "react-bootstrap";
 import { useParams, Link } from "react-router";
+import './user-delete.scss'
 
 export const UserDelete = ({ user, token, onLoggedOut }) => {
   const [showDelete, setShowDelete] = useState(false);
@@ -55,7 +56,10 @@ export const UserDelete = ({ user, token, onLoggedOut }) => {
   };
 
   return (<div>
-    <Button variety="primary" onClick={handleDeleteShow}>Delete User</Button>
+    <Button variety="primary" bsPrefix='utility' onClick={handleDeleteShow}>Delete User</Button>
+    <Link to={`/`}>
+      <Button className="back-button" bsPrefix='utility' style={{ float: 'right' }}>Back</Button>
+    </Link>
 
     <Modal show={showDelete} onHide={handleDeleteClose}>
       <Modal.Header closeButton>
@@ -64,19 +68,19 @@ export const UserDelete = ({ user, token, onLoggedOut }) => {
       <Modal.Body>
         <Form onSubmit={handleDelete}>
           <Form.Group controlId="formPassword">
-            <Form.Label>Re-Enter Password:</Form.Label>
+            <Form.Label className="mx-2">Re-Enter Password:</Form.Label>
             <Form.Control
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <Button varient="Primary" bsPrefix="submit-signup" type="submit">Submit</Button>
+            <Button varient="Primary" bsPrefix="delete" type="submit">Delete User?</Button>
           </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button varient="primary" onClick={handleDeleteClose}>Exit</Button>
+        <Button varient="primary" onClick={handleDeleteClose} bsPrefix="utility" style={{ float: 'right' }}>Exit</Button>
       </Modal.Footer>
     </Modal>
   </div>
