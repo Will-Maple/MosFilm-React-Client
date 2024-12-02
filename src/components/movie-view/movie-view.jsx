@@ -4,8 +4,8 @@ import "./movie-view.scss";
 import PropTypes from "prop-types";
 import { Col, Button } from "react-bootstrap";
 
-export const MovieView = ({ movies }) => {
-  /*const movies = useSelector((state) => state.movies);*/
+export const MovieView = ({ }) => {
+  const movies = useSelector((state) => state.movies.movies);
   const { movieId } = useParams();
 
   const selectedMovie = movies.find((m) => m.id === movieId);

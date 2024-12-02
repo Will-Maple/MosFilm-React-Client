@@ -16,13 +16,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { setMovies } from "../../redux/reducers/movies";
 
 export const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  /*const movies = useSelector((state) => state.movies);*/
-  const [movies, setMovies] = useState([]);
-  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const movies = useSelector((state) => state.movies.movies);
+  const user = useSelector((state) => state.user);
   const [token, setToken] = useState(storedToken ? storedToken : null);
-  /*const dispatch = useDispatch();*/
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!token) {
@@ -43,8 +41,7 @@ export const MainView = () => {
           };
         });
 
-        setMovies(moviesFromApi);
-        /*dispatch(setMovies(moviesFromApi));*/
+        dispatch(setMovies(moviesFromApi));
       });
   }, [token]);
 
@@ -53,12 +50,6 @@ export const MainView = () => {
   return (
     <BrowserRouter>
       <NavigationBar
-        user={user}
-        onLoggedOut={() => {
-          setUser(null);
-          setToken(null);
-          localStorage.clear()
-        }}
       />
       <Row className="justify-content-md-center">
         <Routes>
@@ -83,11 +74,7 @@ export const MainView = () => {
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <LoginView onLoggedIn={(user, token) => {
-                    setUser(user);
-                    setToken(token);
-                  }}
-                  />
+                  <LoginView />
                 )}
               </>
             }
@@ -102,9 +89,7 @@ export const MainView = () => {
                   <Col>The list is empty! Oh no!</Col>
                 ) : (
                   <Col md={8}>
-                    <MovieView
-                      movies={movies}
-                    />
+                    <MovieView />
                   </Col>
                 )}
               </>
