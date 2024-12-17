@@ -1,13 +1,13 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router';
 import './navigation-bar.scss';
-import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "../../redux/reducers/user";
+/*import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/reducers/user";*/
 import favicon from '../../img/logo.png';
 
-export const NavigationBar = ({ }) => {
+export const NavigationBar = ({ user, onLoggedOut }) => {
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  /*const dispatch = useDispatch();*/
 
   return (
     <Navbar expand="md" className="bg-body-tertiary" data-bs-theme="dark">
@@ -39,7 +39,7 @@ export const NavigationBar = ({ }) => {
               <>
                 <Nav.Link as={Link} to="/">Home</Nav.Link>
                 <Nav.Link as={Link} to={`/user/${encodeURIComponent(user.Username)}`}>User Menu</Nav.Link>
-                <Nav.Link onClick={() => dispatch(setUser(null))}>Logout</Nav.Link>
+                <Nav.Link onClick={onLoggedOut}>Logout</Nav.Link>
               </>
             )}
           </Nav>
