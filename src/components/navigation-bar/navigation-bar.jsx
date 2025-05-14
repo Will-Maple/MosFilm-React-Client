@@ -6,7 +6,7 @@ import { setUser } from "../../redux/reducers/user";*/
 import favicon from '../../img/logo.png';
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
-  const user = useSelector((state) => state.user);
+  /*const user = useSelector((state) => state.user);*/
   /*const dispatch = useDispatch();*/
 
   return (
