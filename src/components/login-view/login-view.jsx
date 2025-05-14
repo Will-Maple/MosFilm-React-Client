@@ -1,6 +1,8 @@
 import "./login-view.scss"
 import { useState } from "react";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
+import { setUser } from "../../redux/reducers/user";
+/*import { useSelector, useDispatch } from "react-redux";*/
 
 
 export const LoginView = ({ onLoggedIn }) => {

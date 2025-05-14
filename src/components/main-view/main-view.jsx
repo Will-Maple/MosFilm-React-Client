@@ -6,23 +6,35 @@ import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { UserView } from "../user-view/user-view";
-import { UserDelete } from "../user-delete/user-delete"
+import { UserDelete } from "../user-delete/user-delete";
 import { Row, Col, Image } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import Github from "../../img/github.svg";
 import Portfolio from "../../img/portfolio.svg";
 import Youtube from "../../img/youtube.svg";
-import { useSelector, useDispatch } from "react-redux";
-import { setMovies } from "../../redux/reducers/movies";
+/*import { useSelector, useDispatch } from "react-redux";
+import { setMovies } from "../../redux/reducers/movies";*/
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  /*const movies = useSelector((state) => state.movies);*/
+  /*const movies = useSelector((state) => state.movies.movies);*/
+  /*const user = useSelector((state) => state.user); */
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
+  const [favorites, setFavorites] = useState([]);
+  const [query, setQuery] = useState("");
   /*const dispatch = useDispatch();*/
+
+  let filteredMovies = movies;
+
+  if (query.trim()) {
+    const queryEntry = query.toLowerCase();
+    filteredMovies = movies.filter((movie) => {
+      return movie.title.toLowerCase().includes(queryEntry);
+    });
+  }
 
   useEffect(() => {
     if (!token) {
@@ -30,7 +42,7 @@ export const MainView = () => {
     }
 
     fetch("https://mosfilm-api.onrender.com/movies", {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
       .then((data) => {
@@ -39,7 +51,7 @@ export const MainView = () => {
             id: doc._id,
             title: doc.Title,
             url: doc.URL,
-            director: doc.Director.Name
+            director: doc.Director.Name,
           };
         });
 
@@ -48,7 +60,13 @@ export const MainView = () => {
       });
   }, [token]);
 
-  let favorites = movies.filter(m => user.Favorites.includes(m.id))
+  useEffect(() => {
+    if (user) {
+      setFavorites(movies.filter((m) => user.Favorites.includes(m.id)));
+    } else {
+      setFavorites([]);
+    }
+  }, [user, movies]);
 
   return (
     <BrowserRouter>
@@ -57,7 +75,7 @@ export const MainView = () => {
         onLoggedOut={() => {
           setUser(null);
           setToken(null);
-          localStorage.clear()
+          localStorage.clear();
         }}
       />
       <Row className="justify-content-md-center">
@@ -83,10 +101,11 @@ export const MainView = () => {
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <LoginView onLoggedIn={(user, token) => {
-                    setUser(user);
-                    setToken(token);
-                  }}
+                  <LoginView
+                    onLoggedIn={(user, token) => {
+                      setUser(user);
+                      setToken(token);
+                    }}
                   />
                 )}
               </>
@@ -104,6 +123,10 @@ export const MainView = () => {
                   <Col md={8}>
                     <MovieView
                       movies={movies}
+                      user={user}
+                      token={token}
+                      setUser={setUser}
+                      favorites={favorites}
                     />
                   </Col>
                 )}
@@ -127,7 +150,7 @@ export const MainView = () => {
                         onLoggedOut={() => {
                           setUser(null);
                           setToken(null);
-                          localStorage.clear()
+                          localStorage.clear();
                         }}
                       />
                     </Col>
@@ -149,7 +172,7 @@ export const MainView = () => {
                         onLoggedOut={() => {
                           setUser(null);
                           setToken(null);
-                          localStorage.clear()
+                          localStorage.clear();
                         }}
                       />
                     </Col>
@@ -171,12 +194,20 @@ export const MainView = () => {
                     <Col className="text-center mb-3" md={2}>
                       <div>
                         <a href="https://will-maple.github.io/Portfolio-Website/portfolio.html">
-                          <Image src={Portfolio} alt="Portfolio Link" style={{ height: "50px", width: "100px" }} />
+                          <Image
+                            src={Portfolio}
+                            alt="Portfolio Link"
+                            style={{ height: "50px", width: "100px" }}
+                          />
                         </a>
                       </div>
                       <div>
                         <a href="https://github.com/Will-Maple">
-                          <Image src={Github} alt="Github Link" style={{ height: "50px", width: "50px" }} />
+                          <Image
+                            src={Github}
+                            alt="Github Link"
+                            style={{ height: "50px", width: "50px" }}
+                          />
                         </a>
                       </div>
                     </Col>
@@ -186,18 +217,38 @@ export const MainView = () => {
                     <Col className="text-center mb-3" md={2}>
                       <div>
                         <a href="https://www.youtube.com/channel/UCm5U4zqpahzyNXBv5ZT51Jw">
-                          <Image src={Youtube} alt="Youtube Link" style={{ height: "65px", width: "150px" }} />
+                          <Image
+                            src={Youtube}
+                            alt="Youtube Link"
+                            style={{ height: "65px", width: "150px" }}
+                          />
                         </a>
                       </div>
-                      <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
+                      <button
+                        onClick={() => {
+                          setUser(null);
+                          setToken(null);
+                          localStorage.clear();
+                        }}
+                      >
+                        Logout
+                      </button>
                     </Col>
-                    {movies.map((movie) => (
+                    <input
+                      type="text"
+                      value={query}
+                      onChange={(e) => {
+                        setQuery(e.target.value);
+                      }}
+                      placeholder="search"
+                    />
+                    {filteredMovies.map((movie) => (
                       <Col className="mb-4" key={movie.id} md={3}>
                         <MovieCard
                           movie={movie}
                           user={user}
                           token={token}
-                          favorite={favorites}
+                          favorites={favorites}
                           setUser={setUser}
                         />
                       </Col>

@@ -1,9 +1,14 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router';
 import './navigation-bar.scss';
+/*import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/reducers/user";*/
 import favicon from '../../img/logo.png';
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
+  /*const user = useSelector((state) => state.user);*/
+  /*const dispatch = useDispatch();*/
+
   return (
     <Navbar expand="md" className="bg-body-tertiary" data-bs-theme="dark">
       <Container>
