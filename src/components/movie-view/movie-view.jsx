@@ -4,6 +4,7 @@ import "./movie-view.scss";
 import PropTypes from "prop-types";
 import { Col, Button, Row } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
+import { FavButton } from "../fav-button/fav-button";
 
 export const MovieView = ({ movies, user, token, setUser, favorites }) => {
   /*const movies = useSelector((state) => state.movies.movies);*/
