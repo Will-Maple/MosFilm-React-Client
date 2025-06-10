@@ -196,15 +196,17 @@ export const MainView = () => {
                         <a href="https://will-maple.github.io/Portfolio-Website/portfolio.html">
                           <Image
                             src={Portfolio}
+                            target="_blank"
                             alt="Portfolio Link"
                             style={{ height: "50px", width: "100px" }}
                           />
                         </a>
                       </div>
                       <div>
-                        <a href="https://github.com/Will-Maple">
+                        <a href="https://github.com/Will-Maple/MosFilm-Client">
                           <Image
                             src={Github}
+                            target="_blank"
                             alt="Github Link"
                             style={{ height: "50px", width: "50px" }}
                           />
