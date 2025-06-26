@@ -226,24 +226,17 @@ export const MainView = () => {
                           />
                         </a>
                       </div>
-                      <button
-                        onClick={() => {
-                          setUser(null);
-                          setToken(null);
-                          localStorage.clear();
-                        }}
-                      >
-                        Logout
-                      </button>
+                      <div className="searchbar">
+                        <input
+                          type="text"
+                          value={query}
+                          onChange={(e) => {
+                            setQuery(e.target.value);
+                          }}
+                          placeholder="search"
+                        />
+                      </div>
                     </Col>
-                    <input
-                      type="text"
-                      value={query}
-                      onChange={(e) => {
-                        setQuery(e.target.value);
-                      }}
-                      placeholder="search"
-                    />
                     {filteredMovies.map((movie) => (
                       <Col className="mb-4" key={movie.id} md={3}>
                         <MovieCard
